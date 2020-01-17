@@ -14,25 +14,17 @@ import com.revature.models.EmployeeModel;
 
 public class EmployeeDaoPostgres implements EmployeeDao {
   
-//  private static Logger log = Logger.getLogger(EmployeeDaoPostgres.class); 
-  
+
   private static Connection conn;
 
-//      try {
-//        conn = DriverManager.getConnection(
-//            System.getenv("connstring"), System.getenv("username"), System.getenv("password"));
-////        log.info("Connected to Databse");
-//        System.out.println("Connected To Database");
-//      } catch (SQLException e) {
-////        log.error("Failed to connect to database", e);
-//      }
-//    }
-  
-//   This guy will run when the class loads, after static fields are initialized.
-  
-  
+    
   static {
-
+    // This explicitly loads the Driver class:
+    try {
+      Class.forName("org.postgresql.Driver");
+    } catch (ClassNotFoundException e1) {
+      e1.printStackTrace();
+    }
     try {
       conn = DriverManager.getConnection(
           System.getenv("connstring"), System.getenv("username"), System.getenv("password"));
@@ -77,8 +69,8 @@ public class EmployeeDaoPostgres implements EmployeeDao {
     }
     
 //    System.out.println(out.getEmployeeNumber());
-
-    
+    System.out.println("Result from DB query");
+    System.out.println(out);
     return out;
   }
 
@@ -91,4 +83,5 @@ public class EmployeeDaoPostgres implements EmployeeDao {
 //  }
 
 }
+
 
