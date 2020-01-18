@@ -28,38 +28,44 @@ public class EmployeeServlet extends HttpServlet {
 ////    super.init();
 //  }
 // 
-
+//
+//  @Override
+//  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+//      throws ServletException, IOException {
+//    
+//      String body = req.getReader().toString();
+//    
+//    
+//      ObjectMapper om = new ObjectMapper();
+//     
+//      EmployeeDao employeeDao = new EmployeeDaoPostgres();
+//      
+//      EmployeeModel employee1 = employeeDao.get(body);
+//      
+//      System.out.println("Hello From Servlet");
+//
+//      System.out.println(employee1.getEmployeeNumber());
+//      System.out.println(employee1.getEmployeeFirstName());
+//      System.out.println(employee1.getEmployeeLastName());
+//      System.out.println(employee1.getEmployeeTitle());
+//      System.out.println(employee1.getEmployeeEmail());
+//      
+//      
+////      om.writeValueAsString(employee1)
+////      resp.getWriter().write(om.writeValueAsString(employee1));
+//  }
+  
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    
-      ObjectMapper om = new ObjectMapper();
-      EmployeeModel emp = om.readValue(req.getReader(), EmployeeModel.class);
-    
-      System.out.println("URI:" + req.getRequestURI());
-      String employeeName = req.getParameter("employeeNumber");
-      System.out.println("The Req object is : " + req);
-      System.out.println(" employeeName Req parameter is: " + employeeName);
-      
-      
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException, IOException {
 
-    
-      EmployeeDao employeeDao = new EmployeeDaoPostgres();
-      
-      EmployeeModel employee1 = employeeDao.get("E001");
-      
-      System.out.println("Hello From Servlet");
-
-      System.out.println(employee1.getEmployeeNumber());
-      System.out.println(employee1.getEmployeeFirstName());
-      System.out.println(employee1.getEmployeeLastName());
-      System.out.println(employee1.getEmployeeTitle());
-      System.out.println(employee1.getEmployeeEmail());
-      
-      
-//      om.writeValueAsString(employee1)
-      resp.getWriter().write(om.writeValueAsString(employee1));
-  }
+    System.out.println("Received " + req.getMethod() + " at " + req.getRequestURI());
+    String employeeId = req.getParameter("employeeNum");
+//    EmployeeModel employeeReq = om.readValue(req.getReader(), EmployeeModel.class);
+//    System.out.println("received Employee: " + employeeReq);
+    System.out.println(employeeId);
+    resp.getWriter().write("Received Employee: " + employeeId);
+    }
   
 
 }

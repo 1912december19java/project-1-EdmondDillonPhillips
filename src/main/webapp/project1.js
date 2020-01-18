@@ -8,26 +8,87 @@ let receivedContent = document.getElementById('content');
 
 let employeeUri = "http://localhost:8080/Project1/employee";
 let managerUri;
+let empVal;
+
+
+// employeeForm.addEventListener('submit', (event)=>{
+    
+// 	event.preventDefault();
+//     getEmployeeData();
+// })
+
+
+
+// function getEmployeeData() {
+
+//    empVal = employeeNumber.value;
+//    console.log(empVal);
+//    let xhr = new XMLHttpRequest();
+ 
+//    console.log(xhr.readyState);
+   
+//    xhr.addEventListener('readystatechange', (event)=>{
+//      console.log(xhr.readyState);
+
+
+ 
+//      if(xhr.readyState === xhr.DONE) {
+
+//        //We've received some response since the readystate is DONE
+//        let response = xhr.response;
+//        console.log(response);
+ 
+//        //condition for success/failure:
+//        if(xhr.status >= 200 && xhr.status < 300) {
+//          console.log(`Success with status ${xhr.status}`);
+
+//        } else {
+//          console.error(`Failure with status ${xhr.status}`);
+//        }
+//      }
+//    });
+
+//    xhr.open('POST', employeeUri);
+ 
+//    //actually send
+//    xhr.send(empVal);
+ 
+
+//  }
+
+
+
+//=========================
+
+
+
+
 
 
 
 
 employeeForm.addEventListener('submit', (event)=>{
-    let empVal = employeeNumber.value(); 
-    console.log(empVal);
+
 	event.preventDefault();
-    getData();
+    employeeLogin();
 })
 
-async function getData(){
+async function employeeLogin(){
 
-    await fetch(employeeUri)
-    .then((response) => {
-        return response.json();
-      })
-    .then((myJson)=>{
-        console.log(myJson)
-    })
+    let empVal = {};
+
+    empVal.employeeNum = employeeNumber.value;
+    console.log(JSON.stringify(empVal));
+    let response = await fetch(employeeUri, { method: 'POST', body: JSON.stringify(empVal)});
+    console.log(response);
+
+    // await fetch(employeeUri)
+    // .then((response) => {
+    //     return response.json();
+    //   })
+    // .then((myJson)=>{
+    //     console.log(myJson)
+    // })
 
 
      
