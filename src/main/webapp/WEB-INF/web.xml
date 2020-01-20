@@ -4,19 +4,14 @@
 
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
-
-	<filter>
-		<filter-name>CORS</filter-name>
-		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
-		<init-param>
-			<param-name>cors.allowed.origins</param-name>
-			<param-value>*</param-value>
-		</init-param>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>CORS</filter-name>
-		<url-pattern>*</url-pattern>
-	</filter-mapping>
-
+	<welcome-file-list>
+		<welcome-file>login.html</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>login.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>/axis2-web/index.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>

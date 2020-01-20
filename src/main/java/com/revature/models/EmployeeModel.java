@@ -20,6 +20,9 @@ public class EmployeeModel {
    * @param title
    * @param reportsTo
    */
+  public EmployeeModel() {
+	  super();
+  }
   
   
   public EmployeeModel(String employeeNumber, String firstName, String lastName, String email,

@@ -44,7 +44,7 @@ public class EmployeeDaoPostgres implements EmployeeDao {
     EmployeeModel out = null;
     PreparedStatement stmt = null;
     ResultSet rs = null;
-    System.out.println("Hello from DAO get method");
+    System.out.println("Hello from EmployeeDaoPostgress get() method");
     System.out.println(conn);
 
 
@@ -73,6 +73,51 @@ public class EmployeeDaoPostgres implements EmployeeDao {
     System.out.println(out);
     return out;
   }
+  
+  @Override
+  public List<EmployeeModel> getAll() {
+	  
+	    EmployeeModel out = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    System.out.println("Hello from EmployeeDaoPostgres getAll() method");
+	    System.out.println(conn);
+	  
+	  
+	return null;
+	  
+  }
+  
+  @Override
+  public void save(EmployeeModel employee) {
+	  
+	    EmployeeModel out = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    System.out.println("Hello from EmployeeDaoPostgres save() method");
+	    System.out.println(conn);
+  }
+  @Override
+  public void update(EmployeeModel employee) {
+	    PreparedStatement stmt = null;
+	    System.out.println("Hello from EmployeeDaoPostgres update()");
+	    try {
+	      stmt = conn.prepareStatement(
+	          "UPDATE Employees SET employee_first_name = ?, employee_last_name = ?, employee_email = ? WHERE employee_id = ?");
+	      
+	      stmt.setString(1, employee.getEmployeeFirstName());
+	      stmt.setString(2, employee.getEmployeeLastName());
+	      stmt.setString(3, employee.getEmployeeEmail());
+	      
+	      stmt.setString(4, employee.getEmployeeNumber());
+
+	      stmt.execute();
+
+	    } catch (SQLException e) {
+//	      e.printStackTrace();
+//	      throw new InvalidComicException(e);
+	    }
+  }
 
 
 //  @Override
@@ -83,5 +128,3 @@ public class EmployeeDaoPostgres implements EmployeeDao {
 //  }
 
 }
-
-

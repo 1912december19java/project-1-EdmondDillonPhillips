@@ -12,7 +12,7 @@ public class Main {
     
     EmployeeDao employeeDao = new EmployeeDaoPostgres();
     
-    EmployeeModel employee1 = employeeDao.get("E001");
+    EmployeeModel employee1 = employeeDao.get("E002");
     
 
 
