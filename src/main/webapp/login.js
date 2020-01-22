@@ -1,13 +1,35 @@
 'use strict'
-
+//==========================================================================
+//----------------- Login variables ------------------------------------
+//=======================================================================
+let loginFormContainer = document.getElementById("loginFormContainer");
+//------------------ Employee Login ------------------------------------
 let employeeLoginForm = document.getElementById("employeeLoginForm");
 let employeeNumber = document.getElementById("employeeNumber")
 let employeeLoginFormUrl = "http://localhost:8080/Project1/employeelogin";
+//------------------ Manager Login --------------------------------------
+
+//========================================================================
+//------------------ Employee Info Variables ----------------------------
+//==========================================================================
+let employeeData;
+let employeeInfo = document.getElementById("employeeInfo");
+//========================================================================
+//------------------ Manager Info Variables ----------------------------
+//==========================================================================
+
+
+
+//=========================================================================
+//------------------ Event Listeners --------------------------------------
+//=========================================================================
 
 employeeLoginForm.addEventListener('submit', employeeLogin);
 
-let employeeData;
 
+//=========================================================================
+//---------------------- Functions ----------------------------------------
+//=========================================================================
 async function employeeLogin(e){
     e.preventDefault();
     let empVal = {};
@@ -27,6 +49,49 @@ async function employeeLogin(e){
     // console.log(employeeData.employeeFirstName);
     // console.log(employeeData.employeeLastName);
     // console.log(employeeData.employeeEmail);
+
+    createEmployeeInfo();
+    loginFormContainer.remove();
+};
+//========================================================================
+
+function createEmployeeInfo(){
+
+    let empno = document.createElement("div");
+    let empnotxt = document.createTextNode(employeeData.employeeNumber);
+    empno.appendChild(empnotxt);
+    let empfrstnm = document.createElement("div");
+    let empfrstnmtxt = document.createTextNode(employeeData.employeeFirstName);
+    empfrstnm.appendChild(empfrstnmtxt);
+    let emplstnm = document.createElement("div");
+    let emplstnmtxt = document.createTextNode(employeeData.employeeLastName);
+    emplstnm.appendChild(emplstnmtxt);
+    let empemail = document.createElement("div");
+    let empemailtxt = document.createTextNode(employeeData.employeeEmail);
+    empemail.appendChild(empemailtxt);
+
+
+    employeeInfo.appendChild(empno);
+    employeeInfo.appendChild(empfrstnm);
+    employeeInfo.appendChild(emplstnm);
+    employeeInfo.appendChild(empemail);
+
+    createLogoutButton();
+
+
+}
+//=========================================================================
+
+function createLogoutButton(){
+    let logoutButton = document.createElement("a");
+    let logoutButtonText = document.createTextNode("Logout");
+    logoutButton.setAttribute("href", "http://localhost:8080/Project1/")
+    logoutButton.appendChild(logoutButtonText);
+    employeeInfo.appendChild(logoutButton);
+    logoutButton.addEventListener('click', function(){
+        employeeInfo.remove();
+    })
+}
 
 //========================================================================
     // await fetch(employeeLoginFormUrl,
@@ -49,6 +114,5 @@ async function employeeLogin(e){
     // console.log('after response');
     // employeeData = JSON.parse(response.json());
 
-};
 
-console.log(employeeData);
+
