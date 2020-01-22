@@ -19,41 +19,59 @@ public class EmployeeLoginServlet extends HttpServlet {
 
 	  private EmployeeService employeeService;
 	  private ObjectMapper om;
+
 	  
 	  @Override
 	  public void init() throws ServletException {
 	    this.employeeService =  new EmployeeService(new EmployeeDaoPostgres());
 	    this.om = new ObjectMapper();
+	    
 	    super.init();
 	  }
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Hello from login getmethod");
+		
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("A request was made to " + req.getMethod() + " at " + req.getRequestURL());
-		String employeeNumber = req.getParameter("employeeNumber");
+//		String employeeNumber = req.getParameter("employeeNumber");
+//		System.out.println(employeeNumber);
+//===================================================================================================================
+		EmployeeModel receivedEmployee = om.readValue(req.getReader(), EmployeeModel.class);
+		String empNum = receivedEmployee.getEmployeeNumber();
+		System.out.println(empNum);
 //		HttpSession session = req.getSession();
 //		session.setAttribute("employee", employeeNumber); 
-		
+//		System.out.println(employeeNumber);
 //		EmployeeModel setEmployee = new EmployeeModel(employeeNumber, firstName, lastName, email, title, reportsTo);
 		
-		EmployeeModel employee = employeeService.get(employeeNumber);
-		employee.setEmployeeFirstName(employee.getEmployeeFirstName());
-		EmployeeModel employeeFirstName;
-		EmployeeModel employeeLastName;
-		EmployeeModel employeeEmail;
-		EmployeeModel employeeTitle;
+		EmployeeModel employee = employeeService.get(empNum);
+		String employeeNo = employee.getEmployeeNumber();
+		String employeeFirstName = employee.getEmployeeFirstName();
+		String employeeLastName = employee.getEmployeeLastName();
+		String employeeEmail = employee.getEmployeeEmail();
+		String employeeTitle = employee.getEmployeeTitle();
 		
-		System.out.println(employee.getEmployeeFirstName());
-		System.out.println(employee.getEmployeeLastName());
-		System.out.println(employee.getEmployeeEmail());
-		System.out.println(employee.getEmployeeTitle());
-		System.out.println(employee.getReportsTo());
+//==================================================================================================
+		System.out.println(om.writeValueAsString(employee));
+		System.out.println(employeeNo);
+		System.out.println(employeeFirstName);
+		System.out.println(employeeLastName);
+		System.out.println(employeeEmail);
+		System.out.println(employeeTitle);
+//==================================================================================================
+
+		resp.getWriter().write(om.writeValueAsString(employee));
 		
-		resp.sendRedirect("EmployeePage.html");
+//		employee.setEmployeeFirstName(employee.getEmployeeFirstName());
+
+		
+
+		
+//		resp.sendRedirect("EmployeePage.html");
 		
 	}
 }

@@ -21,8 +21,8 @@ public class EmployeePageServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		System.out.println("A request was made to the employeepageservlet");
-		System.out.println("A request was made to " + req.getMethod() + " at " + req.getRequestURL());
+		System.out.println("A request was made to the EmployePageServlet");
+		System.out.println("A request was made to EmployePageServlet " + req.getMethod() + " at " + req.getRequestURL());
 
 		
 		
