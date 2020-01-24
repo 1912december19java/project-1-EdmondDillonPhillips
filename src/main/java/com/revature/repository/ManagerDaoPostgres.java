@@ -8,8 +8,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.revature.models.EmployeeModel;
+import com.revature.models.ManagerModel;
 
-public class ManagerDaoPostgres {
+public class ManagerDaoPostgres implements ManagerDao {
 
 	  private static Connection conn;
 
@@ -30,89 +31,64 @@ public class ManagerDaoPostgres {
 //	      log.error("Failed to connect to database", e);
 	    }
 
-	  };
-	  
-	  
-	  //Returns the object "out which has the information collected from the database"
-	  @Override
-	  public EmployeeModel get(String employeeNumber) {
-//	    log.info("Attempting to get User with username: " + employeeNumber);
-	    EmployeeModel out = null;
-	    PreparedStatement stmt = null;
-	    ResultSet rs = null;
-	    System.out.println("Hello from EmployeeDaoPostgress get() method");
-	    System.out.println(conn);
-
-
-	    try {
-	      stmt = conn.prepareStatement("SELECT * FROM Employees WHERE employee_id = ?");
-	      // 1 is the index of the ?
-	      stmt.setString(1, employeeNumber);
-	      
-	      // Now our statement is ready to go. Lets run it.
-	      if (stmt.execute()) {
-	        // Now we have some results. Lets get them.
-	        rs = stmt.getResultSet();
-
-	      }
-	      // This line is typical, but not particularly useful for our 1-line rs
-	      while (rs.next()) {
-	        out = new EmployeeModel(rs.getString("employee_id"), rs.getString("employee_first_name"), rs.getString("employee_last_name"),
-	                                rs.getString("employee_email"), rs.getString("employee_title"), rs.getString("manager_id"));
-	      }
-	    } catch (SQLException e) {
-//	      log.error("Failed to retrieve employee with Employee Number: " + employeeNumber, e );
-	    }
-	    
-//	    System.out.println(out.getEmployeeNumber());
-	    System.out.println("Result from DB query");
-	    System.out.println(out);
-	    return out;
 	  }
-	  
-	  @Override
-	  public List<EmployeeModel> getAll() {
-		  
-		    EmployeeModel out = null;
+
+		@Override
+		public ManagerModel get(String managerNumber) {
+//		    log.info("Attempting to get User with username: " + employeeNumber);
+			ManagerModel out = null;
 		    PreparedStatement stmt = null;
 		    ResultSet rs = null;
-		    System.out.println("Hello from EmployeeDaoPostgres getAll() method");
+		    System.out.println("Hello from ManagerDaoPostgress get() method");
 		    System.out.println(conn);
-		  
-		  
-		return null;
-		  
-	  }
-	  
-	  @Override
-	  public void save(EmployeeModel employee) {
-		  
-		    EmployeeModel out = null;
-		    PreparedStatement stmt = null;
-		    ResultSet rs = null;
-		    System.out.println("Hello from EmployeeDaoPostgres save() method");
-		    System.out.println(conn);
-	  }
-	  @Override
-	  public void update(EmployeeModel employee) {
-		    PreparedStatement stmt = null;
-		    System.out.println("Hello from EmployeeDaoPostgres update()");
+
+
 		    try {
-		      stmt = conn.prepareStatement(
-		          "UPDATE Employees SET employee_first_name = ?, employee_last_name = ?, employee_email = ? WHERE employee_id = ?");
+		      stmt = conn.prepareStatement("SELECT * FROM Managers WHERE manager_id = ?");
+		      // 1 is the index of the ?
+		      stmt.setString(1, managerNumber);
 		      
-		      stmt.setString(1, employee.getEmployeeFirstName());
-		      stmt.setString(2, employee.getEmployeeLastName());
-		      stmt.setString(3, employee.getEmployeeEmail());
-		      
-		      stmt.setString(4, employee.getEmployeeNumber());
+		      // Now our statement is ready to go. Lets run it.
+		      if (stmt.execute()) {
+		        // Now we have some results. Lets get them.
+		        rs = stmt.getResultSet();
 
-		      stmt.execute();
-
+		      }
+		      // This line is typical, but not particularly useful for our 1-line rs
+		      while (rs.next()) {
+		        out = new ManagerModel(rs.getString("manager_id"), rs.getString("manager_first_name"), rs.getString("manager_last_name"), rs.getString("manager_email"));
+		      }
 		    } catch (SQLException e) {
-//		      e.printStackTrace();
-//		      throw new InvalidComicException(e);
+//		      log.error("Failed to retrieve employee with Employee Number: " + employeeNumber, e );
 		    }
-	  }
+		    
+//		    System.out.println(out.getEmployeeNumber());
+		    System.out.println("Result from Manager DB query");
+		    System.out.println(out);
+		    return out;
+		}
+
+
+		@Override
+		public List<ManagerModel> getAll() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+		@Override
+		public void save(ManagerModel managerNumber) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		@Override
+		public void update(ManagerModel managerNumber) {
+			// TODO Auto-generated method stub
+			
+		};
+		  
+
 
 }

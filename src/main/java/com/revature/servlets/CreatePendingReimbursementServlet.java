@@ -9,11 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.models.EmployeeModel;
 import com.revature.models.ReimbursementModel;
-import com.revature.repository.EmployeeDaoPostgres;
 import com.revature.repository.PendingDaoPostgres;
-import com.revature.services.EmployeeService;
 import com.revature.services.PendingReimbursements;
 
 @WebServlet(name="CreatePendingReimbursementServlet", urlPatterns= {"/pendingreimbursement"})
@@ -30,6 +27,7 @@ public class CreatePendingReimbursementServlet extends HttpServlet {
 	    
 	    super.init();
 	  }
+	  
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -3,7 +3,9 @@ package com.revature.repository;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.ReimbursementModel;
@@ -37,11 +39,32 @@ public class PendingDaoPostgres implements PendingDao {
 		return null;
 	}
 
-	@Override
-	public List<ReimbursementModel> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	  @Override
+	  public List<ReimbursementModel> getAll() {
+		System.out.println("Hello from the getAll method in PendingDaoPostgress");
+	    List<ReimbursementModel> allPendingRequests = new ArrayList<ReimbursementModel>();
+
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+//	    String employeeNo = pendingRequest.getEmployeeNumber();
+
+	    try {
+	      stmt = conn.prepareStatement("SELECT employee_first_name, amount_requested, purpose, employee_id FROM pendingreimbursements");
+//	      stmt.setString(1, employeeNo);
+
+	      if (stmt.execute()) {
+	        rs = stmt.getResultSet();
+	      }
+	      while (rs.next()) {
+	    	  allPendingRequests.add(new ReimbursementModel(rs.getString("employee_first_name"), rs.getString("amount_requested"), rs.getString("purpose"),
+	            rs.getString("employee_id")));
+	      }
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      
+	    }
+	    return allPendingRequests;
+	  }
 
 	@Override
 	public void save(ReimbursementModel pendingRequest) {

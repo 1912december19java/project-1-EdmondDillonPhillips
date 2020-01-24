@@ -8,6 +8,9 @@ let employeeLoginForm = document.getElementById("employeeLoginForm");
 let employeeNumber = document.getElementById("employeeNumber")
 let employeeLoginFormUrl = "http://localhost:8080/Project1/employeelogin";
 //------------------ Manager Login -----------------------------------------
+let managerLoginForm = document.getElementById("managerLoginForm");
+let managerNumber = document.getElementById("managerNumber");
+let managerLoginFormUrl = "http://localhost:8080/Project1/managerlogin";
 
 //==========================================================================
 //------------------ Employee Info Variables -------------------------------
@@ -19,14 +22,16 @@ let empVal = {};
 //==========================================================================
 //------------------ Manager Info Variables --------------------------------
 //==========================================================================
-
-
+let managerData;
+let managerInfo = document.getElementById("managerInfo");
+let manaVal = {};
 
 //=========================================================================
 //------------------ Event Listeners --------------------------------------
 //=========================================================================
 
 employeeLoginForm.addEventListener('submit', employeeLogin);
+managerLoginForm.addEventListener('submit', managerLogin);
 
 
 //=========================================================================
@@ -280,7 +285,11 @@ reimbursementRequestSubmit.appendChild(reimbursementRequestSubmitTxt);
         // console.log(emplstnm.value)
         console.log("the pending reimbursement data is " + JSON.stringify(pendingReimbursementData));
         // console.log(employeeData)
+        //========================================================================
         await fetch(pendingReimbursementUrl, {method: 'POST', body: JSON.stringify(pendingReimbursementData)});
+        //========================================================================
+        // await fetch(pendingReimbursementUrl);
+
         // .then(response => response.text())
         // .then((data)=>{
         //     updatedEmployeeData = JSON.parse(data)
@@ -302,51 +311,222 @@ async function showPendingReimbursements(){
     //------------------ Show Pending Reimbursement Variables ------------------
     //==========================================================================
     let employeeUpdateContainer = document.getElementById("employeeUpdateContainer");
-    let pendingReimbursementUrl = "http://localhost:8080/Project1/viewpendingreimbursement";
+    let showPendingReimbursementUrl = "http://localhost:8080/Project1/viewpendingreimbursement";
     let updatedEmployeeData;
-    let updateEmployeeVal = {};
+    let javaScriptArray = [];
+    let pendingRequests = document.getElementById("pendingRequests");
     //--------------------------------------------------------------------
     console.log(JSON.stringify(employeeData.employeeNumber))
-    await fetch(pendingReimbursementUrl, {method: 'POST', body: JSON.stringify(employeeData.employeeNumber)});
-
+    await fetch(showPendingReimbursementUrl, {method: 'POST', body: JSON.stringify(employeeData.employeeNumber)})
+    .then(response => response.text())
+        .then((data)=>{
+            javaScriptArray = JSON.parse(data)
+        });
+        console.log(javaScriptArray);
     
         // reimbursementForm.addEventListener("submit", submit);
+
+
+        javaScriptArray.forEach((e)=>{
+            if(e.employeeNumber === employeeData.employeeNumber){
+                let pendingRequestsContainer = document.createElement("div");
+                //------------------------------------------------------------------
+                let newEmployeeNumber = document.createElement("div");
+                let newEmployeeNumberTxt = document.createTextNode(e.employeeNumber);
+                newEmployeeNumber.appendChild(newEmployeeNumberTxt);
+                pendingRequestsContainer.appendChild(newEmployeeNumber);
+                pendingRequests.appendChild(pendingRequestsContainer);
+                //------------------------------------------------------------------
+                let newEmployeeFirstName = document.createElement("div");
+                let newEmployeeFirstNameTxt = document.createTextNode(e.employeeFirstName);
+                newEmployeeFirstName.appendChild(newEmployeeFirstNameTxt);
+                pendingRequestsContainer.appendChild(newEmployeeFirstName);
+                pendingRequests.appendChild(pendingRequestsContainer);
+                //------------------------------------------------------------------
+                let newEmployeeAmountRequested = document.createElement("div");
+                let newEmployeeAmountRequestedTxt = document.createTextNode(e.amountRequested);
+                newEmployeeAmountRequested.appendChild(newEmployeeAmountRequestedTxt);
+                pendingRequestsContainer.appendChild(newEmployeeAmountRequested);
+                pendingRequests.appendChild(pendingRequestsContainer);
+                //------------------------------------------------------------------
+                let newEmployeePurposeForRequest = document.createElement("div");
+                let newEmployeePurposeForRequestTxt = document.createTextNode(e.purposeForRequest);
+                newEmployeePurposeForRequest.appendChild(newEmployeePurposeForRequestTxt);
+                pendingRequestsContainer.appendChild(newEmployeePurposeForRequest);
+                pendingRequests.appendChild(pendingRequestsContainer);
+            }
+        }  
+        )
+
+        
     
     
         
     
-        async function submit(e){
-            e.preventDefault();
-            // let pendingReimbursementData = {};
-            // console.log("The employee data is " + JSON.stringify(employeeData))
+        // async function submit(e){
+        //     e.preventDefault();
+        //     // let pendingReimbursementData = {};
+        //     // console.log("The employee data is " + JSON.stringify(employeeData))
             
-            // let amountRequestedValue = document.getElementById("amountRequested");
-            // let purposeForRequestValue = document.getElementById("purposeForRequest");
+        //     // let amountRequestedValue = document.getElementById("amountRequested");
+        //     // let purposeForRequestValue = document.getElementById("purposeForRequest");
     
-            // pendingReimbursementData.employeeNumber = employeeData.employeeNumber;
-            // pendingReimbursementData.employeeFirstName = employeeData.employeeFirstName;
-            // pendingReimbursementData.amountRequested = amountRequestedValue.value;
-            // pendingReimbursementData.purposeForRequest = purposeForRequestValue.value;
-            // console.log(empfstnm.value)
-            // console.log(emplstnm.value)
-            console.log("the pending reimbursement data is " + JSON.stringify(pendingReimbursementData));
-            // console.log(employeeData)
-            await fetch(pendingReimbursementUrl, {method: 'GET'});
-            // .then(response => response.text())
-            // .then((data)=>{
-            //     updatedEmployeeData = JSON.parse(data)
-            // })
-            // console.log(updatedEmployeeData.employeeFirstName);
-            // while (employeeInfo.hasChildNodes()) {  
-            //     employeeInfo.removeChild(employeeInfo.firstChild);
-            //   }
-            // // employeeInfo.removeChild(employeeForm);
-            // createEmployeeInfo();
-        };
+        //     // pendingReimbursementData.employeeNumber = employeeData.employeeNumber;
+        //     // pendingReimbursementData.employeeFirstName = employeeData.employeeFirstName;
+        //     // pendingReimbursementData.amountRequested = amountRequestedValue.value;
+        //     // pendingReimbursementData.purposeForRequest = purposeForRequestValue.value;
+        //     // console.log(empfstnm.value)
+        //     // console.log(emplstnm.value)
+        //     // console.log("the pending reimbursement data is " + JSON.stringify(pendingReimbursementData));
+        //     // console.log(employeeData)
+        //     // await fetch(showPendingReimbursementUrl, {method: 'GET'});
+        //     // .then(response => response.text())
+        //     // .then((data)=>{
+        //     //     updatedEmployeeData = JSON.parse(data)
+        //     // })
+        //     // console.log(updatedEmployeeData.employeeFirstName);
+        //     // while (employeeInfo.hasChildNodes()) {  
+        //     //     employeeInfo.removeChild(employeeInfo.firstChild);
+        //     //   }
+        //     // // employeeInfo.removeChild(employeeForm);
+        //     // createEmployeeInfo();
+        // };
     };
     
     
     //========================================================================
+    //========================================================================
+    //========================================================================
+    //========================================================================
+    //========================================================================
+    //=========================  Manager Stuff  ==============================
+    //========================================================================
+    //========================================================================
+    //========================================================================
+    //========================================================================
+    //========================================================================
+    //========================================================================
+
+    async function managerLogin(e){
+        e.preventDefault();
+        
+    
+        manaVal.managerNumber = managerNumber.value;
+        console.log(JSON.stringify(manaVal));
+        let response = await fetch(managerLoginFormUrl,
+            { method: 'POST', body: JSON.stringify(manaVal)})
+            .then(response => response.text())
+            .then((data)=>{
+                managerData = JSON.parse(data)
+            })
+            // console.log(managerData.employeeNumber)
+            // employeeData = JSON.parse(response);
+        // employeeData = JSON.parse(response);
+        // console.log(employeeData.employeeNumber);
+        // console.log(employeeData.employeeFirstName);
+        // console.log(employeeData.employeeLastName);
+        // console.log(employeeData.employeeEmail);
+    
+        createManagerInfo();
+        loginFormContainer.remove();
+    };
+    //========================================================================
+
+function createManagerInfo(){
+
+    let manno = document.createElement("div");
+    let mannotxt = document.createTextNode(managerData.managerNumber);
+    manno.appendChild(mannotxt);
+    let manfrstnm = document.createElement("div");
+    let manfrstnmtxt = document.createTextNode(managerData.managerFirstName);
+    manfrstnm.appendChild(manfrstnmtxt);
+    let manlstnm = document.createElement("div");
+    let manlstnmtxt = document.createTextNode(managerData.managerLastName);
+    manlstnm.appendChild(manlstnmtxt);
+    let manemail = document.createElement("div");
+    let manemailtxt = document.createTextNode(managerData.managerEmail);
+    manemail.appendChild(manemailtxt);
+
+
+    managerInfo.appendChild(manno);
+    managerInfo.appendChild(manfrstnm);
+    managerInfo.appendChild(manlstnm);
+    managerInfo.appendChild(manemail);
+
+    
+    // createEmployeeUpdate()
+    // updateEmployeeButton();
+    // createLogoutButton();
+    // createReimbursementButton();
+    // viewPendingRequests();
+    createLogoutButton();
+    viewPendingRequestsManager();
+
+}
+
+//========================================================================
+
+function viewPendingRequestsManager(){
+    let employeeUpdateButton = document.createElement("button");
+    let employeeUpdateButtonTxt = document.createTextNode("View Pending");
+    employeeUpdateButton.appendChild(employeeUpdateButtonTxt);
+    employeeInfo.appendChild(employeeUpdateButton);
+    employeeUpdateButton.addEventListener('click', function(){
+        showPendingReimbursementsManager();
+    })
+
+//=======================================================================
+
+async function showPendingReimbursementsManager(){
+    let employeeUpdateContainer = document.getElementById("employeeUpdateContainer");
+    let showPendingReimbursementUrl = "http://localhost:8080/Project1/viewpendingreimbursement";
+    let updatedEmployeeData;
+    let javaScriptArray = [];
+    let pendingRequests = document.getElementById("pendingRequests");
+    //--------------------------------------------------------------------
+    
+    await fetch(showPendingReimbursementUrl)
+    .then(response => response.text())
+        .then((data)=>{
+            javaScriptArray = JSON.parse(data)
+        });
+        console.log(javaScriptArray);
+    
+    
+        // reimbursementForm.addEventListener("submit", submit);
+
+
+        javaScriptArray.forEach((e)=>{
+            
+                let pendingRequestsContainer = document.createElement("div");
+                //------------------------------------------------------------------
+                let newEmployeeNumber = document.createElement("div");
+                let newEmployeeNumberTxt = document.createTextNode(e.employeeNumber);
+                newEmployeeNumber.appendChild(newEmployeeNumberTxt);
+                pendingRequestsContainer.appendChild(newEmployeeNumber);
+                pendingRequests.appendChild(pendingRequestsContainer);
+                //------------------------------------------------------------------
+                let newEmployeeFirstName = document.createElement("div");
+                let newEmployeeFirstNameTxt = document.createTextNode(e.employeeFirstName);
+                newEmployeeFirstName.appendChild(newEmployeeFirstNameTxt);
+                pendingRequestsContainer.appendChild(newEmployeeFirstName);
+                pendingRequests.appendChild(pendingRequestsContainer);
+                //------------------------------------------------------------------
+                let newEmployeeAmountRequested = document.createElement("div");
+                let newEmployeeAmountRequestedTxt = document.createTextNode(e.amountRequested);
+                newEmployeeAmountRequested.appendChild(newEmployeeAmountRequestedTxt);
+                pendingRequestsContainer.appendChild(newEmployeeAmountRequested);
+                pendingRequests.appendChild(pendingRequestsContainer);
+                //------------------------------------------------------------------
+                let newEmployeePurposeForRequest = document.createElement("div");
+                let newEmployeePurposeForRequestTxt = document.createTextNode(e.purposeForRequest);
+                newEmployeePurposeForRequest.appendChild(newEmployeePurposeForRequestTxt);
+                pendingRequestsContainer.appendChild(newEmployeePurposeForRequest);
+                pendingRequests.appendChild(pendingRequestsContainer);
+            
+        }  
+        )
+}
     // await fetch(employeeLoginFormUrl,
     // { method: 'POST', body: JSON.stringify(empVal)})
     // .then(response =>   response.json())
@@ -365,7 +545,4 @@ async function showPendingReimbursements(){
     
 
     // console.log('after response');
-    // employeeData = JSON.parse(response.json());
-
-
-
+}

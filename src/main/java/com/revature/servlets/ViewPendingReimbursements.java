@@ -2,6 +2,8 @@ package com.revature.servlets;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,9 +35,25 @@ public class ViewPendingReimbursements extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("A request was made to " + req.getMethod() + " at " + req.getRequestURL());
-		ReimbursementModel reimbursementRequestData = om.readValue(req.getReader(), ReimbursementModel.class);
-		System.out.println(reimbursementRequestData);
-
+//		ReimbursementModel reimbursementRequestData = om.readValue(req.getReader(), ReimbursementModel.class);
+//		System.out.println(reimbursementRequestData);
+		
+		List<ReimbursementModel> allPendingRequests = reimbursementService.getAll();
+//		List<ReimbursementModel> filteredRequests;
+		 System.out.println("test");
+//		// iterate via "for loop"
+//				System.out.println("==> For Loop Example.");
+//				for (int i = 0; i < allPendingRequests.size(); i++) {
+//					if(allPendingRequests.get(i).getEmployeeNumber().equals(reimbursementRequestData.getEmployeeNumber()) ) {
+//						filteredRequests.add(allPendingRequests.get(i));
+//						
+//					}
+//					
+//				}
+		 System.out.println(allPendingRequests);
+		 System.out.println(om.writeValueAsString(allPendingRequests));
+		 
+		 resp.getWriter().write(om.writeValueAsString(allPendingRequests));
 
 
 	}
@@ -45,6 +63,24 @@ public class ViewPendingReimbursements extends HttpServlet {
 		System.out.println("A request was made to " + req.getMethod() + " at " + req.getRequestURL());
 		ReimbursementModel reimbursementRequestData = om.readValue(req.getReader(), ReimbursementModel.class);
 		System.out.println(reimbursementRequestData);
+		
+		List<ReimbursementModel> allPendingRequests = reimbursementService.getAll();
+//		List<ReimbursementModel> filteredRequests;
+		 
+//		// iterate via "for loop"
+//				System.out.println("==> For Loop Example.");
+//				for (int i = 0; i < allPendingRequests.size(); i++) {
+//					if(allPendingRequests.get(i).getEmployeeNumber().equals(reimbursementRequestData.getEmployeeNumber()) ) {
+//						filteredRequests.add(allPendingRequests.get(i));
+//						
+//					}
+//					
+//				}
+		 System.out.println(allPendingRequests);
+		 System.out.println(om.writeValueAsString(allPendingRequests));
+		 
+		 resp.getWriter().write(om.writeValueAsString(allPendingRequests));
+
 
 
 	}
