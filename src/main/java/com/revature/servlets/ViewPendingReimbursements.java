@@ -16,7 +16,7 @@ import com.revature.models.ReimbursementModel;
 import com.revature.repository.PendingDaoPostgres;
 import com.revature.services.PendingReimbursements;
 
-@WebServlet(name="CreatePendingReimbursementServlet", urlPatterns= {"/viewpendingreimbursement"})
+@WebServlet(name="ViewPendingReimbursementServlet", urlPatterns= {"/viewpendingreimbursement"})
 public class ViewPendingReimbursements extends HttpServlet {
 
 
