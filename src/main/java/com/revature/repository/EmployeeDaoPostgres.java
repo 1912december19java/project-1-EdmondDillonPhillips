@@ -100,22 +100,23 @@ public class EmployeeDaoPostgres implements EmployeeDao {
   @Override
   public void update(EmployeeModel employee) {
 	    PreparedStatement stmt = null;
+	    String employeeNo = employee.getEmployeeNumber();
+		String employeeFirstName = employee.getEmployeeFirstName();
+		String employeeLastName = employee.getEmployeeLastName();
+
 	    System.out.println("Hello from EmployeeDaoPostgres update()");
 	    try {
 	      stmt = conn.prepareStatement(
-	          "UPDATE Employees SET employee_first_name = ?, employee_last_name = ?, employee_email = ? WHERE employee_id = ?");
+	          "UPDATE Employees SET employee_first_name = ?, employee_last_name = ? WHERE employee_id = ?");
 	      
-	      stmt.setString(1, employee.getEmployeeFirstName());
-	      stmt.setString(2, employee.getEmployeeLastName());
-	      stmt.setString(3, employee.getEmployeeEmail());
-	      
-	      stmt.setString(4, employee.getEmployeeNumber());
+	      stmt.setString(1, employeeFirstName);
+	      stmt.setString(2, employeeLastName);
+	      stmt.setString(3, employeeNo);
 
 	      stmt.execute();
 
 	    } catch (SQLException e) {
-//	      e.printStackTrace();
-//	      throw new InvalidComicException(e);
+	      e.printStackTrace();
 	    }
   }
 

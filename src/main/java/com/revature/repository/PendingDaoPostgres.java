@@ -2,6 +2,7 @@ package com.revature.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -43,8 +44,31 @@ public class PendingDaoPostgres implements PendingDao {
 	}
 
 	@Override
-	public void save(ReimbursementModel employee) {
-		// TODO Auto-generated method stub
+	public void save(ReimbursementModel pendingRequest) {
+		System.out.println("Hello from the reimbursement save()");
+	    PreparedStatement stmt = null;
+	    String employeeNo = pendingRequest.getEmployeeNumber();
+		String employeeFirstName = pendingRequest.getEmployeeFirstName();
+		String amountRequested = pendingRequest.getAmountRequested();
+	    String purposeForRequest = pendingRequest.getPurposeForRequest();
+
+
+	    System.out.println("Hello from EmployeeDaoPostgres update()");
+	    try {
+	      stmt = conn.prepareStatement(
+	    		  "INSERT INTO pendingreimbursements (employee_first_name, amount_requested, purpose, employee_id) VALUES (?, ?, ?, ?)");
+	      
+	      stmt.setString(1, employeeFirstName);
+	      stmt.setString(2, amountRequested);
+	      stmt.setString(3, purposeForRequest);
+	      stmt.setString(4, employeeNo);
+
+
+	      stmt.execute();
+
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
 		
 	}
 

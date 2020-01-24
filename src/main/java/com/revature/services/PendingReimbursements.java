@@ -28,10 +28,10 @@ public class PendingReimbursements {
 		return pendingDao.getAll();
 	}
 	
-	public void save(ReimbursementModel pendingReceipt) {
+	public void save(ReimbursementModel pendingRequest) {
 		System.out.println("Hello From Employee Service save()");
 
-		pendingDao.save(pendingReceipt);
+		pendingDao.save(pendingRequest);
 	}
 	
 	public void update(ReimbursementModel pendingReceipt) {

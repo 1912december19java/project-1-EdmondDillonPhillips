@@ -10,7 +10,7 @@ public interface PendingDao {
 
 	List<ReimbursementModel> getAll();
 
-	void save(ReimbursementModel pendingReceipt);
+	void save(ReimbursementModel pendingRequest);
 
 	void update(ReimbursementModel pendingReceipt);
 

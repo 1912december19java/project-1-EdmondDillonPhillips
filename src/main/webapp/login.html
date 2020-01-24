@@ -12,25 +12,32 @@
 
     <div id="loginFormContainer">
     
-    <form action="" method="" id="employeeLoginForm">
-        <label for="employeeNumer">Employee Number</label>
-        <input type="text" name="employeeNumber" id="employeeNumber">
-        <input type="submit">
-    </form>
+        <form action="" method="" id="employeeLoginForm">
+            <label for="employeeNumer">Employee Number</label>
+            <input type="text" name="employeeNumber" id="employeeNumber">
+            <input type="submit">
+        </form>
 
-    <form action="http://localhost:8080/Project1/managerlogin" method="POST">
-        <label for="managerNumber">Manager Number</label>
-        <input type="text" name="managerNumber">
-        <input type="submit">
-    </form>
+        <form action="http://localhost:8080/Project1/managerlogin" method="POST">
+            <label for="managerNumber">Manager Number</label>
+            <input type="text" name="managerNumber">
+            <input type="submit">
+        </form>
 
     </div>
 
     <div id="employeeInfo">
 
+            <div id="employeeUpdateContainer">
+
+            </div>
+
     </div>
 
-    <script src="login.js"></script>
+    <div id="pendingRequests"></div>
+    <div id="resolvedRequests"></div>
+
+    <script src="./login.js"></script>
 
 
 </body>
